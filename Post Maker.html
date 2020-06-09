@@ -1,0 +1,161 @@
+<!doctype html>
+
+<html lang="he">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="jquery.cookie.js"></script>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <style>
+    @import url(https://fonts.googleapis.com/earlyaccess/opensanshebrew.css);
+    @import url(https://fonts.googleapis.com/earlyaccess/opensanshebrewcondensed.css);
+
+    .w3-button {
+		  width: 150px;
+	  }
+	
+	  .w3-radius-button {
+		  border-radius: 8px;
+	  }
+
+    .remove-outline {
+      outline: none;
+    }
+
+    .hebrewfont {
+      resize: none;
+      font-family: 'Open Sans Hebrew', serif;
+      font-size: 14px;
+    }
+
+    textarea {
+      resize: none;
+      font-family: 'Open Sans Hebrew', serif;
+      font-size: 14px;
+    }
+
+    * {
+      text-align: center;
+    }
+  </style>
+<head>
+  <meta charset="utf-8">
+
+  <title>The HTML5 Herald</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+  <br>
+  <input type="text" class="w3-radius-button hebrewfont remove-outline" name="textfield" value="" id="token" placeholder="הטוקן שלך" dir="rtl">
+  <br>
+  <br>
+  <select name="prefixid" id="prefixfield" class="full w3-radius-button hebrewfont remove-outline" tabindex="1">
+    <option value="" class="hebrewfont">ללא תיוג</option>
+    <option value="dis" class="hebrewfont">דיון</option>
+    <option value="mfAfqn32" class="hebrewfont">עזרה</option>
+    <option value="q" class="hebrewfont">שאלה</option>
+    <option value="report" class="hebrewfont">כתבה</option>
+    <option value="mad" class="hebrewfont">מדריך</option>
+    <option value="problem" class="hebrewfont">בעיה</option>
+    <option value="info" class="hebrewfont">מידע</option>
+    <option value="SDL" class="hebrewfont">הצעה</option>
+    <option value="pirs" class="hebrewfont">פרסום</option>
+    <option value="SDG45MYTJ" class="hebrewfont">סרטון</option>
+    <option value="kav64646" class="hebrewfont">קאבר</option>
+    <option value="dis2" class="hebrewfont">קליפ</option>
+    <option value="SDSDFSDFFSD343434" class="">פתרון</option>
+    <option value="DKD" class="hebrewfont">הכרזה</option>
+    <option value="PB1" class="hebrewfont">ספוילר</option>
+    <option value="PB2" class="hebrewfont">צפייה ישירה</option>
+    <option value="request" class="hebrewfont">בקשה</option>
+    <option value="gvideo" class="hebrewfont">וידאו</option>
+    <option value="atgar" class="hebrewfont">אתגר</option>
+    <option value="comparison" class="hebrewfont">השוואה</option>
+    <option value="DFHERTH" class="hebrewfont">סיקור</option>
+    </select>
+  <br>
+  <br>
+  <input type="text" class="w3-radius-button hebrewfont remove-outline" name="textfield" value="" id="title" placeholder="כותרת" dir="rtl">
+  <br>
+  <br>
+  <textarea class="w3-radius-button hebrewfont remove-outline" id="content" rows="6" cols="80" placeholder="תוכן"></textarea>
+  <br>
+  <br>
+  <input type="text" class="w3-radius-button hebrewfont remove-outline" name="textfield" value="" id="forumid" placeholder="ה־ID של הפורום" dir="rtl">
+  <br>
+  <br>
+  <button class="w3-button w3-radius-button hebrewfont remove-outline" id="buildBtn" style="background-color: white;">בנה אשכול</button>
+  <button class="w3-button w3-radius-button hebrewfont remove-outline" id="publishBtn" style="background-color: white;">פרסם אשכול</button>
+  <button class="w3-button w3-radius-button hebrewfont remove-outline" id="savetokenBtn" style="background-color: white;">שמור טוקן</button>
+  <button class="w3-button w3-radius-button hebrewfont remove-outline" id="testBtn" style="background-color: white;">כפתור הניסויים</button>
+  <a href="index.html"><button class="w3-button w3-radius-button hebrewfont remove-outline" id="homeBtn" style="background-color: white;">חזור למסך הבית</button></a>
+  <br>
+  <br>
+  <textarea class="w3-input w3-radius-button" id="output" rows="10" cols="80" dir="ltr" readonly=""></textarea>
+
+</head>
+
+<body style="background-color:#696969" dir="rtl">
+    <script>
+    $("#output").hide();
+    const build = (title, content) => `[CENTER][U][B][SIZE=4]${title}[/SIZE][/U][/B][/CENTER]
+
+[CENTER][SIZE=3]${content}[/SIZE][/CENTER]`.trim();
+    $(document).ready(function() {
+        $('#buildBtn').click(function() {
+          if($("#token").val() != "" && $("#prefixfield").val != "" && $("#title").val() != "" && $("#content").val() && $("#forumid").val() != "") {
+              $("#output").show();
+              $('#output').val(build($("#title").val(), $("#content").val()));
+          }else {
+            alert("בבקשה תמלא את כל הפרטים הנתונים");
+          }
+      })
+        $("#publishBtn").click(function() {
+          if($("#output").is(":visible")) {
+            openWindowWithPost("https://www.fxp.co.il/newthread.php?do=newthread&f=" + $("#forumid").val(), {
+            subject: $("#title").val(),
+            message: $("#output").val(),
+            prefixid: $("#prefixfield").val(),
+            preview: "תצוגה מקדימה להודעה",
+            do: "postthread",
+            securitytoken: $("#token").val()
+            })
+          }else {
+            alert("אתה לא יכול לפרסם אשכול אם עוד לא בנית אותו")
+          }
+      })
+      $("#testBtn").click(function() {
+        alert($("#prefixfield").val());
+      })
+  });
+
+  var token = localStorage.getItem("token");
+
+  if(token != null) {
+    $("#token").val(token);
+  }
+
+      $("#savetokenBtn").click(function() {
+        localStorage.setItem("token", $("#token").val());
+      })
+
+  function openWindowWithPost(url, data) {
+    var form = document.createElement("form");
+    form.target = "_blank";
+    form.method = "POST";
+    form.action = url;
+    form.style.display = "none";
+
+    for (var key in data) {
+        var input = document.createElement("input");
+        input.type = "hidden";
+        input.name = key;
+        input.value = data[key];
+        form.appendChild(input);
+    }
+
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
+}
+  </script>
+</body>
+</html>

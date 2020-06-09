@@ -1,0 +1,58 @@
+@import url(https://fonts.googleapis.com/earlyaccess/opensanshebrew.css);
+@import url(https://fonts.googleapis.com/earlyaccess/opensanshebrewcondensed.css);
+
+.w3-button {
+      width: 150px;
+      margin-top: 10px;
+  }
+
+.w3-radius-button {
+      border-radius: 15px;
+  }
+
+.remove-outline {
+  outline: none;
+}
+
+.hebrewfont {
+  resize: none;
+  font-family: 'Open Sans Hebrew', serif;
+  font-size: 14px;
+}
+
+textarea {
+  resize: none;
+  font-family: 'Open Sans Hebrew', serif;
+  font-size: 14px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+nav {
+    width: 100%;
+    height: 90px;
+    background-color: #9c9898;
+}
+
+ul {
+
+}
+
+ul li {
+    list-style: none;
+    display: inline-block;
+    line-height: 50px;
+}
+
+ul li a {
+  display: block;
+  text-decoration: none;
+  font-size: 20px;
+  font-family: 'Open Sans Hebrew', serif;
+  color: #000000;
+  padding: 0 2px;
+}
